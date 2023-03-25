@@ -4,6 +4,7 @@ function sign(num) {
 
 class Perceptron {
   weights = [0, 0];
+  learningRate = 0.1 //evita excesso de ajuste ao recalibrar os pesos
 
   constructor() {
     for (let i = 0; i < this.weights.length; i++) {
@@ -19,5 +20,14 @@ class Perceptron {
 
     const output = sign(sum);
     return output
+  }
+
+  train(inputs, target) {
+    const guess = this.guess(inputs)
+    const error = target - guess
+
+    for (let i = 0; i < this.weights.length; i++) {
+      this.weights[i] += error * inputs[i] * this.learningRate
+    }
   }
 }
